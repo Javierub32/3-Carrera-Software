@@ -96,6 +96,35 @@ def consultar_cursos_mas_50Horas(db):
 	for curso in resultados:
 		print(curso["nombre"] + " - " + str(curso["duracion_horas"]) + " horas")
 
+def actualizar_edad_Laura_23(db):
+	resultado = db.estudiantes.update_one({"nombre": "Laura Martínez"}, {"$set": {"edad": 23}})
+	print("Documentos actualizados:" + str(resultado.modified_count))
+ 
+def ejercicio5_actualizar_todos_estudiantes_activos(db):
+	resultado = db.estudiantes.update_many({}, {"$set": {"activo": True}})
+	print("Documentos actualizados:" + str(resultado.modified_count))
+
+def ejercicio6_infoCurso_porEstudiante(db, estudiante_nombre):
+	resultado = db.estudiantes.aggregate([
+		{"$match": {"nombre": estudiante_nombre}},
+		{"$lookup": {
+			"from": "cursos",
+			"localField": "curso_id",
+			"foreignField": "_id",
+			"as": "info_curso"
+		}},
+		{"$unwind": "$info_curso"},
+		{"$project": {
+			"_id": 0,
+			"nombre_estudiante": "$nombre",
+			"nombre_curso": "$info_curso.nombre",
+			"profesor": "$info_curso.profesor",
+			"duracion_horas": "$info_curso.duracion_horas",
+			"nivel": "$info_curso.nivel"
+		}}
+	])
+	for info in resultado:
+		print(info)
 
 
 if __name__ == "__main__":
@@ -108,6 +137,9 @@ if __name__ == "__main__":
 		ejercicio1_consultaEstudiantes(db)
 		consultas_madrid(db)
 		consultar_cursos_mas_50Horas(db)
+		actualizar_edad_Laura_23(db)
+		ejercicio5_actualizar_todos_estudiantes_activos(db)
+		ejercicio6_infoCurso_porEstudiante(db, "Laura Martínez")
 	except Exception as e:
 		print("Error al insertar documentos:", e)
 	finally:
