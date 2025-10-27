@@ -1,0 +1,105 @@
+reset
+
+--Creamos la biblioteca
+!new Biblioteca('biblioteca')
+!biblioteca.direccion := 'Avda Louis Pasteur'
+!biblioteca.maxPrestamos := 100
+
+-- Vamos a asignar un bibliotecario a la biblioteca
+!new Bibliotecario('bibliotecario')
+!bibliotecario.nombre := 'Pepe'
+!insert(biblioteca,bibliotecario) into trabajador
+
+--Creamos dos libros y dos revistas
+!new Libro('libro1')
+!libro1.titulo := 'Program with Java'
+!new Libro('libro2')
+!libro2.titulo := 'Python for beginners'
+
+!new Revista('revista1')
+!revista1.titulo := 'Software and Systems Modeling'
+!new Revista('revista2')
+!revista2.titulo := 'Transactions on Software Engineering'
+
+--Creamos dos ejemplares de cada libro y revista
+!new EjempLibro('ejLibro1')
+!ejLibro1.fechaFabricacion := 1
+!ejLibro1.codigoBarras := '7241'
+!new EjempLibro('ejLibro2')
+!ejLibro2.fechaFabricacion := 2
+!ejLibro2.codigoBarras := '5691'
+!new EjempLibro('ejLibro3')
+!ejLibro3.fechaFabricacion := 5
+!ejLibro3.codigoBarras := '1741'
+!new EjempLibro('ejLibro4')
+!ejLibro4.fechaFabricacion := 6
+!ejLibro4.codigoBarras := '0851'
+
+!new EjempRevista('ejRevista1')
+!ejRevista1.fechaFabricacion := 1
+!ejRevista1.codigoQR := 'TH67'
+!new EjempRevista('ejRevista2')
+!ejRevista2.fechaFabricacion := 2
+!ejRevista2.codigoQR := 'HJ23'
+!new EjempRevista('ejRevista3')
+!ejRevista3.fechaFabricacion := 3
+!ejRevista3.codigoQR := 'BA51'
+!new EjempRevista('ejRevista4')
+!ejRevista4.fechaFabricacion := 7
+!ejRevista4.codigoQR := 'LN78'
+
+--Establecemos las relaciones entre los artículos y sus ejemplares
+!insert(libro1,ejLibro1) into copiasLibro
+!insert(libro1,ejLibro2) into copiasLibro
+!insert(libro2,ejLibro3) into copiasLibro
+!insert(libro2,ejLibro4) into copiasLibro
+
+!insert(revista1,ejRevista1) into copiasRevista
+!insert(revista1,ejRevista2) into copiasRevista
+!insert(revista2,ejRevista3) into copiasRevista
+!insert(revista2,ejRevista4) into copiasRevista
+
+--Toda biblioteca debe tener artículos y ejemplares, así que asignamos los que hemos creado
+!insert(biblioteca,libro1) into catalogo
+!insert(biblioteca,libro2) into catalogo
+!insert(biblioteca,revista1) into catalogo
+!insert(biblioteca,revista2) into catalogo
+!insert(biblioteca,ejLibro1) into registro
+!insert(biblioteca,ejLibro2) into registro
+!insert(biblioteca,ejLibro3) into registro
+!insert(biblioteca,ejLibro4) into registro
+!insert(biblioteca,ejRevista1) into registro
+!insert(biblioteca,ejRevista2) into registro
+!insert(biblioteca,ejRevista3) into registro
+!insert(biblioteca,ejRevista4) into registro
+--Creamos una estudiante que es cliente de la biblioteca
+!new Estudiante('estudiante1')
+!estudiante1.nombre := 'Ana'
+!estudiante1.curso := 3
+!insert(biblioteca,estudiante1) into clientes
+
+--Creamos un préstamo de libros para esa estudiante
+!new PrestamoLibro('pl1')
+!pl1.fechaInicio := 2
+!pl1.fechaFin := 5
+
+--Asignamos el préstamo de libros a ejemplares de libro y a estudiante
+!insert(pl1,ejLibro1) into librosPrestados
+!insert(pl1,ejLibro3) into librosPrestados
+!insert(estudiante1,pl1) into prestLibros
+
+--Creamos un profesor que es cliente de la biblioteca
+!new Profesor('profesor1')
+!profesor1.nombre := 'Javier'
+!profesor1.depto := 'lcc'
+!insert(biblioteca,profesor1) into clientes
+
+--Creamos un préstamo para el profesor
+!new Prestamo('p1')
+!p1.fechaInicio := 3
+!p1.fechaFin := 7
+
+--Asignamos el préstamo a ejemplares de libros y revistas, y al profesor
+!insert(p1,ejLibro1) into prestados
+!insert(p1,ejRevista1) into prestados
+!insert(profesor1,p1) into prestRealizados

@@ -1,0 +1,199 @@
+model Biblioteca_v7
+
+---------- Classes --------------
+class Clock 
+  attributes
+    now : Integer 
+end 
+
+abstract class Persona 
+  attributes 
+    nombre : String 
+    direccion : String 
+end
+
+class Biblioteca
+  attributes
+    direccion : String
+    maxPrestamos : Integer
+end
+
+abstract class Prestatario < Persona
+  attributes
+    sancionado : Boolean derive : --Codigo para sancionarlo si alguna vez devolvieron un articulo tarde
+        --self.oclIsTypeOf(Profesor) implies self.oclAsType(Profesor).prestamos->exists(p|p.fechaDevolucion > p.fechaFin) and
+        --self.oclIsTypeOf(EstPosgrado) implies self.oclAsType(EstPosgrado).prestamos->exists(p|p.fechaDevolucion > p.fechaFin) and
+        --self.oclIsTypeOf(Estudiante) implies self.oclAsType(Estudiante).prestamos->exists(p|p.fechaDevolucion > p.fechaFin)
+        --Codigo para sancionarlo si devolvieron un articulo tarde en el ultimo mes
+        self.oclIsTypeOf(Profesor) implies self.oclAsType(Profesor).prestamos->
+            select(p|Clock.allInstances()->asSequence()->first().now - p.fechaInicio <= 30) -> exists(p|p.fechaDevolucion > p.fechaFin) and
+        self.oclIsTypeOf(EstPosgrado) implies self.oclAsType(EstPosgrado).prestamos->
+            select(p|Clock.allInstances()->asSequence()->first().now - p.fechaInicio <= 30) -> exists(p|p.fechaDevolucion > p.fechaFin) and
+        self.oclIsTypeOf(Estudiante) implies self.oclAsType(Estudiante).prestamos->
+            select(p|Clock.allInstances()->asSequence()->first().now - p.fechaInicio <= 30) -> exists(p|p.fechaDevolucion > p.fechaFin)
+end 
+
+class Bibliotecario < Persona
+end 
+
+class Profesor < Prestatario 
+  attributes 
+    depto : String 
+    antiguedad : Integer 
+end 
+
+class EstPosgrado < Prestatario 
+  attributes 
+    depto : String 
+end 
+
+class Estudiante < Prestatario 
+  attributes 
+    curso : Integer 
+end 
+
+abstract class Articulo 
+  attributes 
+    titulo : String
+end 
+
+class Libro < Articulo 
+  attributes 
+    isbn : String 
+    autor : String 
+end 
+
+class Revista < Articulo
+  attributes 
+    issn : String 
+    numero : Integer 
+end 
+
+abstract class Ejemplar 
+  attributes 
+    fechaFabricacion : Integer
+end 
+
+class EjempLibro < Ejemplar 
+  attributes 
+    codigoBarras : String 
+end 
+
+class EjempRevista < Ejemplar 
+  attributes 
+    codigoQR : String 
+end 
+
+abstract class Prestamo
+  attributes 
+    fechaInicio : Integer 
+    fechaFin : Integer 
+    fechaDevolucion : Integer
+    maxDias : Integer derive : fechaFin - fechaInicio
+end
+
+class PrestamoGlobal < Prestamo end 
+class PrestamoLibro < Prestamo end 
+class PrestamoRevista < Prestamo end
+------ End of Classes -----------
+
+------- Associations ---------
+aggregation trabajador between 
+    Biblioteca[1] role biblioteca
+    Bibliotecario[1] role bibliotecario 
+end 
+
+aggregation clientes between 
+  Biblioteca[1..*] role biblioteca
+  Prestatario[0..*] role prestatarios 
+end 
+
+aggregation catalogo between 
+  Biblioteca[1..*] role biblioteca 
+  Articulo[1..*] role articulos 
+end
+
+aggregation registro between 
+  Biblioteca[1] role biblioteca 
+  Ejemplar[1..*] role ejemplares 
+end 
+
+composition copiasLibro between 
+  Libro[1] role libro
+  EjempLibro[1..*] role ejemplares
+end
+
+composition copiasRevista between 
+  Revista[1] role revista
+  EjempRevista[1..*] role ejemplares
+end
+
+association tutoria between 
+  Profesor[1] role tutor 
+  EstPosgrado[0..*] role tutorizados 
+end 
+
+composition regPrestamos between 
+  Biblioteca[1] role biblioteca 
+  Prestamo[0..*] role prestamos 
+end
+
+composition prestGlobales between 
+  Profesor[1] role profesor 
+  PrestamoGlobal[0..*] role prestamos
+end 
+
+composition prestRevistas between 
+  EstPosgrado[1] role estPosgrado
+  PrestamoRevista[0..*] role prestamos 
+end 
+
+composition prestLibros between 
+  Estudiante[1] role estudiante 
+  PrestamoLibro[0..*] role prestamos 
+end 
+
+association prestados between 
+  PrestamoGlobal[0..*] role prestamos 
+  Ejemplar[1..3] role ejemplares 
+end 
+
+association revistasPrestadas between 
+  PrestamoRevista[0..*] role prestRevistas 
+  EjempRevista[1..3] role ejempRevistas 
+end 
+
+association librosPrestados between 
+  PrestamoLibro[0..*] role prestLibros 
+  EjempLibro[1..3] role ejempLibros
+end 
+---- End of Associations -----
+
+---- Invariants ----
+constraints
+-- Los libros y sus ejemplares deben estar en la misma biblioteca
+context Libro
+	inv LibroEjemplarMismaBiblioteca : self.ejemplares -> forAll (e | 
+		self.biblioteca -> includes(e.biblioteca))
+
+-- Las revistas y sus ejemplares deben estar en la misma biblioteca
+context Revista
+	inv RevistaEjemplarMismaBiblioteca : self.ejemplares -> forAll (e |
+		self.biblioteca -> includes(e.biblioteca))
+
+-- Los prestatarios deben ser clientes de la biblioteca donde hacen los prestamos
+context PrestamoLibro
+	inv PrestLibroEjemplaresMismaBiblioteca : self.ejempLibros -> forAll (e |
+		e.biblioteca = self.biblioteca)
+
+-- Los profesores y sus estudiantes de posgrado tutorizados deben estar en el mismo departamento.
+context EstPosgrado
+	inv TutorMismoDpto : self.depto = self.tutor.depto
+
+context Profesor
+	inv TutorizadosMismoDpto : self.tutorizados->forAll(e | e.depto = self.depto)
+
+-- En un Prestamo de libros, si hay más de un ejemplar, entonces deben ser ejemplares distintos
+context PrestamoLibro
+	inv EjemplaresLibrosDistintoMisPrestamos : 
+		self.ejempLibros -> forAll(e1, e2 | e1 <> e2 implies e1.libro <> e2.libro) 

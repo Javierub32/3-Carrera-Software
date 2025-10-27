@@ -1,0 +1,123 @@
+model Lavadora
+
+enum TipoPrenda {Camiseta,Jersey,Pantalon}
+enum EstadoPrenda{MuySucio,Sucio,Limpio}
+
+----------Clases---------------------
+abstract class Lavadora
+attributes
+    marca : String 
+    capDetergente : Integer 
+    maxTempLavado : Integer 
+    maxCentrifugado : Integer 
+    maxPeso : Integer 
+end              
+
+class LavadoraNormal < Lavadora 
+attributes 
+    capSuavizante : Integer 
+end 
+
+class LavadoraSecadora < Lavadora 
+attributes
+    maxTempSecado : Integer 
+end 
+
+abstract class Colada
+attributes
+    temp : Integer 
+    rpm : Integer 
+    cantDetergente : Integer 
+    inicioL : Integer
+    inicioC : Integer 
+    fin : Integer 
+    peso : Integer derive : self.prendas->collect(peso)->sum()
+end
+
+class ColadaNormal < Colada 
+attributes 
+    cantSuavizante : Integer 
+end
+
+class ColadaSecado < Colada 
+attributes 
+    inicioS: Integer 
+    tempSecado : Integer 
+end
+
+class Prenda 
+attributes 
+    tipo : TipoPrenda
+    peso : Integer 
+end
+
+--------Asociaciones-------------
+composition LavaNormal between 
+    LavadoraNormal [1] role lavadora
+    ColadaNormal [*] role coladas ordered
+end 
+
+composition LavaSeca between 
+    LavadoraSecadora [1] role lavadora
+    ColadaSecado [*] role coladas ordered 
+end 
+
+associationclass Estado between 
+    Colada[*] role coladas
+    Prenda[*] role prendas 
+    attributes 
+        estado : EstadoPrenda 
+end 
+
+----------Invariantes----------------
+constraints
+
+-- Restricciones para LavadoraNormal
+context LavadoraNormal
+    inv TemperaturaMaxLavadoNormal : self.maxTempLavado <= 60
+    inv RevolucionesMaxCentrifugadoNormal : self.maxCentrifugado <= 1800
+
+-- Restricciones para LavadoraSecadora
+context LavadoraSecadora
+    inv TemperaturaMaxLavadoSecadora : self.maxTempLavado <= 40
+    inv RevolucionesMaxCentrifugadoSecadora : self.maxCentrifugado <= 1200
+
+context ColadaNormal
+    inv CantidadDetergente : self.cantDetergente <= self.lavadora.capDetergente
+    inv CantidadSuavizante : self.cantSuavizante <= self.lavadora.capSuavizante
+    inv TemperaturaLavado : self.temp <= self.lavadora.maxTempLavado
+    inv RevolucionesCentrifugado : self.rpm <= self.lavadora.maxCentrifugado
+    inv PesoColada : self.peso <= self.lavadora.maxPeso
+
+context ColadaSecado
+    inv CantidadDetergente : self.cantDetergente <= self.lavadora.capDetergente
+    inv TemperaturaLavado : self.temp <= self.lavadora.maxTempLavado
+    inv TemperaturaSecado : self.tempSecado <= self.lavadora.maxTempSecado
+    inv RevolucionesCentrifugado : self.rpm <= self.lavadora.maxCentrifugado
+    inv PesoColada : self.peso <= self.lavadora.maxPeso
+
+context Colada
+    inv JerseyTempMaxColada: self.prendas->exists(p | p.tipo = #Jersey) implies self.temp <= 30
+
+context ColadaNormal
+	inv JerseySinSuavizante: self.prendas->exists(p | p.tipo = #Jersey) implies self.cantSuavizante = 0
+
+context ColadaNormal
+    inv AlMenosUnaFase: self.inicioL.oclIsDefined() or self.inicioC.oclIsDefined()
+    
+	inv OrdenLavadoCentrifugado: (self.inicioL.oclIsDefined() and self.inicioC.oclIsDefined()) 
+        implies self.inicioL < self.inicioC
+
+    inv CentrifugadoAntesFin: self.inicioC.oclIsDefined() implies self.inicioC < self.fin
+    
+	inv LavadoAntesFin: self.inicioL.oclIsDefined() implies self.inicioL < self.fin
+
+context ColadaSecado
+	inv AlMenosUnaFase: self.inicioL.oclIsDefined() or self.inicioS.oclIsDefined()
+	
+	inv OrdenLavadoSecado: (self.inicioL.oclIsDefined() and self.inicioS.oclIsDefined()) 
+		implies self.inicioL < self.inicioS
+
+	inv SecadoAntesFin: self.inicioS.oclIsDefined() implies self.inicioS < self.fin
+	
+	inv LavadoAntesFin: self.inicioL.oclIsDefined() implies self.inicioL < self.fin

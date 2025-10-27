@@ -1,0 +1,17 @@
+# Ignore virtual environment folder
+.venv/
+venv/
+.venv.rar
+
+
+# Optional: Also ignore other common Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/

@@ -1,0 +1,132 @@
+reset 
+
+!new Clock('clock')
+!clock.now := 25
+
+--Creamos la biblioteca
+!new Biblioteca('biblioteca')
+!biblioteca.direccion := 'Avda Louis Pasteur'
+!biblioteca.maxPrestamos := 100 
+
+-- Vamos a asignar un bibliotecario a la biblioteca
+!new Bibliotecario('bibliotecario')
+!bibliotecario.nombre := 'Pepe'
+!insert(biblioteca,bibliotecario) into trabajador
+
+--Creamos dos libros y dos revistas 
+!new Libro('libro1')
+!libro1.titulo := 'Program with Java'
+!new Libro('libro2')
+!libro2.titulo := 'Python for beginners'
+
+!new Revista('revista1')
+!revista1.titulo := 'Software and Systems Modeling'
+!new Revista('revista2')
+!revista2.titulo := 'Transactions on Software Engineering'
+
+--Creamos dos ejemplares de cada libro y revista
+!new EjempLibro('ejLibro1')
+!ejLibro1.fechaFabricacion := 1
+!ejLibro1.codigoBarras := '7241'
+!new EjempLibro('ejLibro2')
+!ejLibro2.fechaFabricacion := 2
+!ejLibro2.codigoBarras := '5691'
+!new EjempLibro('ejLibro3')
+!ejLibro3.fechaFabricacion := 5
+!ejLibro3.codigoBarras := '1741'
+!new EjempLibro('ejLibro4')
+!ejLibro4.fechaFabricacion := 6
+!ejLibro4.codigoBarras := '0851'
+
+!new EjempRevista('ejRevista1')
+!ejRevista1.fechaFabricacion := 1
+!ejRevista1.codigoQR := 'TH67'
+!new EjempRevista('ejRevista2')
+!ejRevista2.fechaFabricacion := 3
+!ejRevista2.codigoQR := 'QP57'
+!new EjempRevista('ejRevista3')
+!ejRevista3.fechaFabricacion := 3
+!ejRevista3.codigoQR := 'BA51'
+!new EjempRevista('ejRevista4')
+!ejRevista4.fechaFabricacion := 7
+!ejRevista4.codigoQR := 'LN78'
+
+--Establecemos las relaciones entre los articulos y sus ejemplares
+!insert(libro1,ejLibro1) into copiasLibro
+!insert(libro1,ejLibro2) into copiasLibro
+!insert(libro2,ejLibro3) into copiasLibro
+!insert(libro2,ejLibro4) into copiasLibro
+!insert(revista1,ejRevista1) into copiasRevista
+!insert(revista1,ejRevista2) into copiasRevista
+!insert(revista2,ejRevista3) into copiasRevista
+!insert(revista2,ejRevista4) into copiasRevista
+
+--Toda biblioteca debe tener articulos y ejemplares, asi que asignamos los que hemos creado
+!insert(biblioteca,libro1) into catalogo
+!insert(biblioteca,libro2) into catalogo
+!insert(biblioteca,revista1) into catalogo
+!insert(biblioteca,revista2) into catalogo
+!insert(biblioteca,ejLibro1) into registro
+!insert(biblioteca,ejLibro2) into registro
+!insert(biblioteca,ejLibro3) into registro
+!insert(biblioteca,ejLibro4) into registro
+!insert(biblioteca,ejRevista1) into registro
+!insert(biblioteca,ejRevista2) into registro
+!insert(biblioteca,ejRevista3) into registro
+!insert(biblioteca,ejRevista4) into registro
+
+--Creamos un estudiante que es cliente de la biblioteca
+!new Estudiante('estudiante1')
+!estudiante1.nombre := 'Ana'
+!estudiante1.curso := 3
+!insert(biblioteca,estudiante1) into clientes
+--Creamos un prestamo de libros para la estudiante y lo asociamos con la biblioteca
+!new PrestamoLibro('pl1')
+!pl1.fechaInicio := 2
+!pl1.fechaFin := 5
+!pl1.fechaDevolucion := 4
+!insert(biblioteca,pl1) into regPrestamos
+--Asignamos el prestamo de libros a ejemplares de libro y a estudiante
+!insert(pl1,ejLibro1) into librosPrestados
+!insert(pl1,ejLibro3) into librosPrestados -- Si aqui ponemos ejLibro2 en lugar de ejLibro3, el invariante LibrosDistintos deberia evaluarse a falso
+!insert(estudiante1,pl1) into prestLibros
+
+--Creamos otro estudiante que es cliente de la biblioteca
+!new Estudiante('estudiante2')
+!estudiante2.nombre := 'Juan'
+!estudiante2.curso := 1
+!insert(biblioteca,estudiante2) into clientes
+--Creamos un prestamo de libros para el estudiante y lo asociamos con la biblioteca
+!new PrestamoLibro('pl2')
+!pl2.fechaInicio := 4   -- Si esta fecha de inicio es anterior, por ejemplo 3, entonces el inv NoMismoEjemplarDosPrestamosSimultaneos da false
+!pl2.fechaFin := 7
+!pl2.fechaDevolucion := 8
+!insert(biblioteca,pl2) into regPrestamos
+--Asignamos el prestamo de libros a ejemplares de libro y a estudiante
+!insert(pl2,ejLibro1) into librosPrestados
+!insert(pl2,ejLibro3) into librosPrestados -- Si aqui ponemos ejLibro2 en lugar de ejLibro3, el invariante LibrosDistintos deberia evaluarse a falso
+!insert(estudiante2,pl2) into prestLibros
+
+--Creamos un profesor que es cliente de la biblioteca
+!new Profesor('profesor1')
+!profesor1.nombre := 'Javier'
+!profesor1.depto := 'lcc'
+!insert(biblioteca,profesor1) into clientes 
+--Creamos un prestamo para el profesor
+!new PrestamoGlobal('pg1')
+!pg1.fechaInicio := 3
+!pg1.fechaFin := 7
+!pg1.fechaDevolucion := 7
+!insert(biblioteca,pg1) into regPrestamos
+--Asignamos el prestamos a ejemplares de libros y revitas, y al profesor
+!insert(pg1,ejLibro2) into prestados 
+!insert(pg1,ejRevista1) into prestados 
+!insert(profesor1,pg1) into prestGlobales
+
+--Creamos un Estudiante de Posgrado cliente de la biblioteca
+!new EstPosgrado('estPosgrado1')
+!estPosgrado1.nombre := 'Alicia'
+!estPosgrado1.depto := 'lcc'
+!insert(biblioteca,estPosgrado1) into clientes
+--Decimos que el profesor Javier es tutor de Alicia
+!insert(profesor1,estPosgrado1) into tutoria

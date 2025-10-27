@@ -1,0 +1,107 @@
+model Biblioteca_v5
+
+-- =============================================================================
+-- ENUMERACIONES
+-- =============================================================================
+
+enum TipoArticulo {
+    libro,
+    revista
+}
+-- =============================================================================
+-- CLASES
+-- =============================================================================
+
+abstract class Persona
+attributes
+    nombre      : String
+    direccion   : String
+end
+
+class Biblioteca
+attributes
+    direccion      : String
+    maxPrestamos   : Integer
+end
+abstract class Prestatario < Persona
+attributes
+    sancionado : Boolean derive:
+        self.prestamo->exists(p | p.fechaDevolucion > p.fechaFin)
+end
+class Bibliotecario < Persona
+end
+
+class Profesor < Prestatario
+attributes
+    depto       : String
+    antiguedad  : Integer
+end
+
+class EstPosgrado < Prestatario
+attributes
+    depto : String
+end
+
+class Estudiante < Prestatario
+attributes
+    curso : Integer
+end
+class Articulo
+attributes
+    titulo  : String
+    isbn    : String
+    tipo    : TipoArticulo
+end
+
+class Ejemplar
+attributes
+    fechaFabricacion : Integer
+    codigoBarras     : String
+end
+-- =============================================================================
+-- ASOCIACIONES
+-- =============================================================================
+
+aggregation trabajador between
+    Biblioteca[1]      role biblioteca
+    Bibliotecario[1]   role bibliotecario
+end
+
+aggregation clientes between
+    Biblioteca[1..*]   role biblioteca
+    Prestatario[0..*]  role prestatario
+end
+
+aggregation catalogo between
+    Biblioteca[1..*]   role biblioteca
+    Articulo[1..*]     role articulos
+end
+
+aggregation registro between
+    Ejemplar[1..*]     role ejemplares
+    Biblioteca[1]      role biblioteca
+
+end
+
+composition ejemplares between
+    Articulo[1]        role articulo
+    Ejemplar[1..*]     role ejemplar
+end
+
+association tutoria between
+    Profesor[1]        role tutor
+    EstPosgrado[0..*]  role tutorizado
+end
+-- =============================================================================
+-- CLASES DE ASOCIACIÓN
+-- =============================================================================
+
+associationclass Prestamo between
+    Prestatario[0..*]  role prestatario
+    Ejemplar[0..*]     role ejemplar
+	attributes
+		fechaInicio     : Integer
+		fechaFin        : Integer
+		fechaDevolucion : Integer
+		maxDias         : Integer derive: fechaFin - fechaInicio
+endz

@@ -1,0 +1,69 @@
+model Practica1
+
+enum tipoPrenda { Camisetas, Jerseys, Pantalones}
+enum tipoSuciedad { MuySucia, Sucia, Limpia}
+enum tipoColadaEstandar { Lavado, Centriguado}
+enum tipoColadaPlancha { Lavado, Centriguado, Secado}
+
+abstract class Lavadora
+	attributes
+		marca : String
+		capacidad : Integer
+		tempMaxLav : Integer
+		revolucionesMaximas : Integer
+		pesoMaximo : Integer
+end
+
+class LavadoraEstandar < Lavadora
+	attributes
+		capacidadSuavizante : Integer
+end
+
+class LavadoraPlancha < Lavadora
+	attributes
+		tempMaxSec : Integer
+end
+
+abstract class Colada
+	attributes
+		tempLav : Integer
+		revoluciones : Integer
+		cantidadDetergente : Integer
+		pesoRopaTotal :  Integer derive:
+			self.prenda->collect(peso)->sum()
+		inicioFaseLavado : Integer
+		finFaseLavado : Integer
+		inicioFaseCentrifugado : Integer
+		finFaseCentrifugado : Integer
+end
+
+class ColadaEstandar < Colada
+	attributes
+		cantidadSuavizante : Integer
+		faseLav: tipoColadaEstandar
+end
+
+class ColadaPlancha < Colada
+	attributes
+		tempSec : Integer
+		faseLav: tipoColadaPlancha
+		inicioFaseSecado : Integer
+		finFaseSecado : Integer
+end
+
+class Prenda
+	attributes
+		tipo : tipoPrenda
+		suciedad: tipoSuciedad
+		peso : Integer
+end
+
+association poneALavar between
+    Lavadora[1]   role lavadora
+    Colada[0..*]  role colada
+end
+
+association lava between
+    Colada[1]   role colada
+    Prenda[0..*]  role prenda
+end

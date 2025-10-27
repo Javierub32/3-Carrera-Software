@@ -1,0 +1,158 @@
+model Biblioteca_v5
+
+--------- Classes ---------------
+abstract class Persona
+attributes
+  nombre : String
+  direccion : String
+end
+
+class Biblioteca
+attributes
+  direccion : String
+  maxPrestamos : Integer
+end
+
+abstract class Prestatario < Persona
+attributes
+  sancionado : Boolean derive :
+  self.oclIsTypeOf(Profesor) implies
+    self.oclAsType(Profesor).prestamos->exists(p |
+      p.fechaDevolucion > p.fechaFin) and
+  self.oclIsTypeOf(EstPosgrado) implies
+    self.oclAsType(EstPosgrado).prestamos->exists(p |
+      p.fechaDevolucion > p.fechaFin) and
+  self.oclIsTypeOf(Estudiante) implies
+    self.oclAsType(Estudiante).prestamos->exists(p |
+      p.fechaDevolucion > p.fechaFin)
+end
+
+class Bibliotecario < Persona
+end
+
+class Profesor < Prestatario
+attributes
+  depto : String
+  antiguedad : Integer
+end
+
+class EstPosgrado < Prestatario
+attributes
+  depto : String
+end
+
+class Estudiante < Prestatario
+attributes
+  curso : Integer
+end
+
+abstract class Articulo
+attributes
+  titulo : String
+end
+
+class Libro < Articulo
+attributes
+  isbn : String
+  autor : String
+end
+
+class Revista < Articulo
+attributes
+  issn : String
+  numero : Integer
+end
+
+abstract class Ejemplar
+attributes
+  fechaFabricacion : Integer
+end
+
+class EjempLibro < Ejemplar
+attributes
+  codigoBarras : String
+end
+
+class EjempRevista < Ejemplar
+attributes
+  codigoQR : String
+end
+
+class Prestamo
+attributes
+  fechaInicio : Integer
+  fechaFin : Integer
+  fechaDevolucion : Integer
+  maxDias : Integer derive : fechaFin - fechaInicio
+end
+
+class PrestamoLibro < Prestamo end
+class PrestamoRevista < Prestamo end
+------ End of Classes ----------
+
+------- Associations ---------
+aggregation trabajador between
+  Biblioteca[1] role biblioteca
+  Bibliotecario[1] role bibliotecario
+end
+
+aggregation clientes between
+  Biblioteca[1..*] role biblioteca
+  Prestatario[0..*] role prestatarios
+end
+
+aggregation catalogo between
+  Biblioteca[1..*] role biblioteca
+  Articulo[1..*] role articulos
+end
+
+aggregation registro between
+  Biblioteca[1] role biblioteca
+  Ejemplar[1..*] role ejemplares
+end
+
+composition copiasLibro between
+  Libro[1] role libro
+  EjempLibro[1..*] role ejemplares
+end
+
+composition copiasRevista between
+  Revista[1] role revista
+  EjempRevista[1..*] role ejemplares
+end
+
+association prestados between
+  Prestamo[0..*] role prestamos
+  Ejemplar[1..3] role ejemplares
+end
+
+association revistasPrestadas between
+  PrestamoRevista[0..*] role prestRevistas
+  EjempRevista[1..3] role ejempRevistas
+end
+
+association librosPrestados between
+  PrestamoLibro[0..*] role prestLibros
+  EjempLibro[1..3] role ejempLibros
+end
+
+association tutoria between
+  Profesor[1] role tutor
+  EstPosgrado[0..*] role tutorizados
+end
+
+composition prestRealizados between
+  Profesor[1] role profesor
+  Prestamo[0..*] role prestamos
+end
+
+composition prestRevistas between
+  EstPosgrado[1] role estPosgrado
+  PrestamoRevista[0..*] role prestamos
+end
+
+composition prestLibros between
+  Estudiante[1] role estudiante
+  PrestamoLibro[0..*] role prestamos
+end
+---- End of Associations -----
