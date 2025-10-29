@@ -1,6 +1,9 @@
 import pymongo
 from pymongo import MongoClient
 from datetime import datetime
+import pprint
+
+pp = pprint.PrettyPrinter(indent=2)
 
 """
 
@@ -278,40 +281,107 @@ def ej11_crearIndiceAscendente(db):
         [("categoria", pymongo.ASCENDING), ("precio", pymongo.DESCENDING)]
     )
 
+
 def ej12_indiceUnicoEmail(db):
-	db.clientes.create_index("email", unique=True)
+    db.clientes.create_index("email", unique=True)
+
 
 def ej13_verIndicesProductos(db):
-	indices = db.productos.list_indexes()
-	for indice in indices:
-		print(indice)
-  
+    indices = db.productos.list_indexes()
+    for indice in indices:
+        print(indice)
+
+
+def ej14_estadisticasProductos(db):
+    pipeline = [
+        {
+            "$group": {
+                "_id": "$categoria",
+                "cantidad": {"$sum": 1},
+                "precio_promedio": {"$avg": "$precio"},
+                "stock_total": {"$sum": "$stock"},
+                "precio_maximo": {"$max": "$precio"},
+                "productos": {
+                    "$push": {
+                        "_id": "$_id",
+                        "nombre": "$nombre",
+                        "precio": "$precio",
+                        "stock": "$stock",
+                    }
+                },
+            }
+        },
+        {"$sort": {"cantidad": -1}},
+    ]
+
+    resultados = list(db.productos.aggregate(pipeline))
+    for res in resultados:
+        pp.pprint(res)
+
+
 def ej15_combinaInfo(db):
     pipeline_ventas = [
-		{
-			"lookup": {
-				"from":  "productos",
-				"localField": "producto_id",
-				"foreignField": "_id",
-				"as": "info_producto"
-			}
-        },
         {
-            "$unwind": "$info_producto"
+            "$lookup": {
+                "from": "productos",
+                "localField": "producto_id",
+                "foreignField": "_id",
+                "as": "info_producto",
+            }
         },
-		{
+        {"$unwind": "$info_producto"},
+        {
             "$project": {
-				"cliente": "$cliente_email",           #!"cliente_email" : 1 si no quiero renombrar
-				"producto": "$info_producto.nombre",
-				"categoria": "$info_producto.categoria",
-				"marca": "$info_producto.marca",
-				"cantidad": 1,
-				"total": 1,
-				"ciudad": 1,
-			}
-		}
-	] 
-    resultado = db.ventas.aggregate(pipeline_ventas)
+                "_id": 0,
+                "cliente": "$cliente_email",  #!"cliente_email" : 1 si no quiero renombrar
+                "producto": "$info_producto.nombre",
+                "categoria": "$info_producto.categoria",
+                "marca": "$info_producto.marca",
+                "cantidad": 1,
+                "total": 1,
+                "ciudad": 1,
+            }
+        },
+    ]
+    resultado = list(db.ventas.aggregate(pipeline_ventas))
+    for venta in resultado:
+        pp.pprint(venta)
+
+
+def ej16_desempeno_por_ciudad(db):
+    pipeline = [
+        {
+            "$group": {
+                "_id": "$ciudad",
+                "total_ventas": {"$sum": "$total"},
+                "transacciones": {"$sum": 1},
+                "promedio_por_transaccion": {"$avg": "$total"},
+            }
+        },
+        {"$sort": {"total_ventas": -1}},
+    ]
+
+    resultados = list(db.ventas.aggregate(pipeline))
+    for r in resultados:
+        pp.pprint(r)
+
+
+def ej17_insertar_y_borrar_producto(db):
+    producto_temp = {
+        "nombre": "Producto Temporal",
+        "categoria": "temporal",
+        "precio": 0.01,
+        "stock": 1,
+        "marca": "Test",
+        "fecha_ingreso": datetime.now(),
+        "activo": False,
+    }
+    resultado = db.productos.insert_one(producto_temp)
+    print("Inserción realizada. _id =", resultado.inserted_id)
+
+    res_delete = db.productos.delete_one({"_id": resultado.inserted_id})
+    print("Documentos borrados:", resultado.deleted_count)
+
 
 if __name__ == "__main__":
     try:
@@ -323,7 +393,7 @@ if __name__ == "__main__":
         print("\n----- Ejercicio 1: Consulta de Productos -----")
         ej01_obtenerProductos(db)
 
-        print("\n----- Ejercicio 2: Consulta de Productos Activos -----")
+        print("\n----- Ejercicio 2: Consulta de Productos8 Activos -----")
         ej02_consultaProductosActivos(db)
 
         print("\n----- Ejercicio 3: Consulta de Productos Computadores-----")
@@ -345,19 +415,31 @@ if __name__ == "__main__":
         ej08_descuentoApple(db)
 
         print("\n----- Ejercicio 9: Incrementar Stock -----")
-        ej09_incrementarStock(db)	
-  
+        ej09_incrementarStock(db)
+
         print("\n----- Ejercicio 10: Crear Indice Nombre -----")
-        ej10_crearIndiceNombre(db)	
-  
-        print("\n----- Ejercicio 11: Crear Indice Ascendente -----")	
+        ej10_crearIndiceNombre(db)
+
+        print("\n----- Ejercicio 11: Crear Indice Ascendente -----")
         ej11_crearIndiceAscendente(db)
-  
+
         print("\n----- Ejercicio 12: Indice Unico Email -----")
         ej12_indiceUnicoEmail(db)
-  
+
         print("\n----- Ejercicio 13: Ver Indices Productos -----")
-        ej13_verIndicesProductos(db)	
+        ej13_verIndicesProductos(db)
+
+        print("\n----- Ejercicio 14: Estadisticas Productos -----")
+        ej14_estadisticasProductos(db)
+
+        print("\n----- Ejercicio 15: Ver Indices Productos -----")
+        ej15_combinaInfo(db)
+
+        print("\n----- Ejercicio 16: Desempeño por ciudad -----")
+        ej16_desempeno_por_ciudad(db)
+
+        print("\n----- Ejercicio 17: Insertar y borrar producto -----")
+        ej17_insertar_y_borrar_producto(db)
 
     except Exception as e:
         print("Error al insertar documentos:", e)
