@@ -1,0 +1,76 @@
+model TopFive_V1
+
+-- =============================================================================
+-- ENUMERACIONES
+-- =============================================================================
+
+
+-- =============================================================================
+-- CLASES
+-- =============================================================================
+class Libro
+attributes
+	titulo: String
+	autor: String
+	saga: String
+	paginas: Integer
+	editorial: String
+	genero: String
+end
+
+class Videojuego
+attributes
+end
+
+class Cancion
+attributes
+end
+
+class Album
+attributes
+end
+
+class Pelicula
+attributes
+end
+
+class Serie
+attributes
+end
+
+-- Clase común a añadir cualquier libros/videojuego/canción... a tu cuenta
+abstract class Recurso
+attributes
+end
+
+-- Añadimos los recursos específicos
+class Recurso_Libro < Recurso
+attributes
+	libro: Libro
+end
+
+class Recurso_Videojuego < Recurso
+attributes
+	videojuego: Videojuego
+end
+
+class Recurso_Cancion < Recurso
+attributes
+	cancion: Cancion
+end
+
+class Recurso_Album < Recurso
+attributes
+	album: Album
+end
+
+class Recurso_Pelicula < Recurso
+attributes
+	pelicula: Pelicula
+end
+
+class Recurso_Serie < Recurso
+attributes
+	serie: Serie
+end
+
