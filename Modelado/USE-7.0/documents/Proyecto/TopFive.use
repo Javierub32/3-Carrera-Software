@@ -1,0 +1,159 @@
+model TopFive_V1
+
+-- =============================================================================
+-- ENUMERACIONES
+-- =============================================================================
+
+enum TipoEstado { PENDIENTE, EN_CURSO, COMPLETADO }
+
+-- =============================================================================
+-- CLASES
+-- =============================================================================
+class Usuario
+attributes
+	nombreUsuario: String
+	email: String
+	contrasena: String
+	fechaRegistro: String
+end
+
+class Libro
+attributes
+	titulo: String
+	autor: String
+	saga: String
+	editorial: String
+	genero: String
+	paginas: Integer -- > 0
+end
+
+class Videojuego
+attributes
+	nombre: String
+	desarrollador: String
+	fechaLanzamiento: String
+	duracion: Integer -- > 0
+end
+
+class Cancion
+attributes
+	nombre: String
+	artista: String
+	duracion: Integer -- en segundos
+end
+
+class Album
+attributes
+	nombre: String
+	artista: String
+	fechaLanzamiento: String
+end
+
+class Pelicula
+attributes
+	nombre: String
+	director: String
+	fechaEstreno: String
+	duracion: Integer -- > 0
+end
+
+class Serie
+attributes
+	nombre: String
+	creador: String
+	numeroTemporadas: Integer -- > 0
+end
+
+-- Clase común a añadir cualquier libros/videojuego/canción... a tu cuenta
+abstract class Recurso
+attributes
+	calificacion: Integer
+	resena: String
+	estado: TipoEstado
+	favorito: Boolean
+end
+
+-- Añadimos los recursos específicos
+class RecursoLibro < Recurso
+attributes
+	horasParaCompletar: Integer -- > 0
+	paginasLeidas: Integer      -- > 0
+	fechaInicio: String
+	fechaFin: String
+end
+
+class RecursoVideojuego < Recurso
+attributes
+	horasParaCompletar: Integer -- > 0
+	horasJugadas: Integer     -- > 0
+	dificultad: Integer		-- escala del 1 al 10
+	fechaInicio: String
+	fechaFin: String
+end
+
+class RecursoCancion < Recurso
+attributes
+	fechaEscucha: String
+end
+
+class RecursoAlbum < Recurso
+attributes
+	fechaEscucha: String
+end
+
+class RecursoPelicula < Recurso
+attributes
+	fechaVisionado: String
+	numeroVisionados: Integer -- > 0
+end
+
+class RecursoSerie < Recurso
+attributes
+	temporadaActual: Integer -- > 0
+	episodioActual: Integer -- > 0
+	fechaInicio: String
+	fechaFin: String
+end
+------ End of Classes -----------
+
+
+------- Associations ---------
+association Tiene between
+	Usuario[1] role propietario
+	Recurso[*] role recursos
+end
+
+association PerteneceAlbum between
+	RecursoAlbum[0..*] role album
+	RecursoCancion[1..*] role canciones
+end
+
+association ReferenciaLibro between
+    Libro[1] role libroBase
+    RecursoLibro[*] role instanciasUsuario
+end
+
+association ReferenciaVideojuego between
+    Videojuego[1] role videojuegoBase
+    RecursoVideojuego[*] role instanciasUsuario
+end
+
+association ReferenciaCancion between
+    Cancion[1] role cancionBase
+    RecursoCancion[*] role instanciasUsuario
+end
+
+association ReferenciaAlbum between
+    Album[1] role albumBase
+    RecursoAlbum[*] role instanciasUsuario
+end
+
+association ReferenciaPelicula between
+    Pelicula[1] role peliculaBase
+    RecursoPelicula[*] role instanciasUsuario
+end
+
+association ReferenciaSerie between
+    Serie[1] role serieBase
+    RecursoSerie[*] role instanciasUsuario
+end
