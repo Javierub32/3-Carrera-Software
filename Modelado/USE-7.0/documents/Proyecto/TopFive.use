@@ -17,14 +17,20 @@ attributes
 	fechaRegistro: String
 end
 
+class UsuarioAdministrador < Usuario
+attributes
+	dni: String
+	telefono: String
+end
+
 class Libro
 attributes
 	titulo: String
 	autor: String
 	saga: String
 	editorial: String
-	genero: String
 	paginas: Integer -- > 0
+	genero: String
 end
 
 class Videojuego
@@ -33,6 +39,7 @@ attributes
 	desarrollador: String
 	fechaLanzamiento: String
 	duracion: Integer -- > 0
+	genero: String
 end
 
 class Cancion
@@ -40,6 +47,7 @@ attributes
 	nombre: String
 	artista: String
 	duracion: Integer -- en segundos
+	genero: String
 end
 
 class Album
@@ -47,6 +55,7 @@ attributes
 	nombre: String
 	artista: String
 	fechaLanzamiento: String
+	genero: String
 end
 
 class Pelicula
@@ -55,6 +64,7 @@ attributes
 	director: String
 	fechaEstreno: String
 	duracion: Integer -- > 0
+	genero: String
 end
 
 class Serie
@@ -62,15 +72,18 @@ attributes
 	nombre: String
 	creador: String
 	numeroTemporadas: Integer -- > 0
+	genero: String
+
 end
 
--- Clase común a añadir cualquier libros/videojuego/canción... a tu cuenta
+-- Clase común para añadir cualquier libros/videojuego/canción... a tu cuenta
 abstract class Recurso
 attributes
 	calificacion: Integer
 	resena: String
 	estado: TipoEstado
 	favorito: Boolean
+	fechaCreacion: String
 end
 
 -- Añadimos los recursos específicos
@@ -114,6 +127,11 @@ attributes
 	fechaInicio: String
 	fechaFin: String
 end
+
+class RecursoColeccion < Recurso
+attributes
+	nombreColeccion: String
+end
 ------ End of Classes -----------
 
 
@@ -156,4 +174,66 @@ end
 association ReferenciaSerie between
     Serie[1] role serieBase
     RecursoSerie[*] role instanciasUsuario
+end
+
+------- Asociaciones del administrador para crear ---------
+association CreaLibro between
+    UsuarioAdministrador[1] role creador
+    Libro[*] role libro
+end
+
+association CreaVideojuego between
+	UsuarioAdministrador[1] role creador
+	Videojuego[*] role videojuego
+end
+
+association CreaCancion between
+	UsuarioAdministrador[1] role creador
+	Cancion[*] role cancion
+end
+
+association CreaAlbum between
+	UsuarioAdministrador[1] role creador
+	Album[*] role album
+end
+
+association CreaPelicula between
+	UsuarioAdministrador[1] role creador
+	Pelicula[*] role pelicula
+end
+
+association CreaSerie between
+	UsuarioAdministrador[1] role creador
+	Serie[*] role serie
+end
+
+------- Asociaciones del administrador para crear ---------
+association ContieneLibro between
+	RecursoColeccion[1] role coleccion
+	RecursoLibro[*] role libros
+end
+
+association ContieneVideojuego between
+	RecursoColeccion[1] role coleccion
+	RecursoVideojuego[*] role videojuegos
+end
+
+association ContieneCancion between
+	RecursoColeccion[1] role coleccion
+	RecursoCancion[*] role canciones
+end
+
+association ContieneAlbum between
+	RecursoColeccion[1] role coleccion
+	RecursoAlbum[*] role albums
+end
+
+association ContienePelicula between
+	RecursoColeccion[1] role coleccion
+	RecursoPelicula[*] role peliculas
+end
+
+association ContieneSerie between
+	RecursoColeccion[1] role coleccion
+	RecursoSerie[*] role series
 end

@@ -4,7 +4,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # subcarpetas que quieres procesar
-subcarpetas = ["English", "Japanese", "Multiple"]
+subcarpetas = ["English", "Japanese", "Multiple", "Final"]
 
 for carpeta in subcarpetas:
     ruta_carpeta = os.path.join(BASE_DIR, carpeta)

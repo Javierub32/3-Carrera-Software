@@ -1,0 +1,14 @@
+Usuario Administrador que herede de Usuario
+Genero -> Renta para filtrar
+Añadir fechaCreacion al recurso para estadistica respecto a apuntar pelica vs vertela (si la pongo como pendiente antes de vermela)
+ListaPersonal -> Coleccion con X temática (Favoritos 2025, Animes Por Ver, )
+
+protected void addEstado(Estado estado) { 
+    // Solo pantalones pueden agregar estados
+    assert tipo == TipoPrenda.PANTALON : "Solo los pantalones pueden agregar estados";
+    estados.add(estado); 
+}
+
+    inv soloCompletadoTieneCalificacion:
+        self.calificacion > 0 implies self.estado = TipoEstado::COMPLETADO
+    
