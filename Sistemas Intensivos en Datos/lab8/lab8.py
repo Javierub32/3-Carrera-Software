@@ -115,12 +115,73 @@ print("\nVenta máxima:", ventas_region_max)
 print("\nNúmero de ventas:", ventas_region_cantidad)
 
 # Ejercicio 9
-# 1. Nueva columna con IVA (21%)
 df_ventas['Venta_Con_IVA'] = df_ventas['Venta_Total'] * 1.21
 
-# 2. Columna de categoría según el precio unitario
 df_ventas['Categoria_Precio'] = np.where(
     df_ventas['Precio_Unitario'] > 500,
     'Alto',
     'Bajo'
 )
+
+def clasificar_venta(venta_total):
+    if venta_total < 500:
+        return 'Pequeña'
+    elif venta_total < 2000:
+        return 'Mediana'
+    else:
+        return 'Grande'
+
+df_ventas['Tipo_Venta'] = df_ventas['Venta_Total'].apply(clasificar_venta)
+
+# Ejercicio 10
+info_producto= {
+ 'Producto': ['Laptop', 'Mouse', 'Teclado', 'Monitor', 'Tablet', 'Auriculares'],
+ 'Categoria': ['Electrónica', 'Accesorio', 'Accesorio', 'Electrónica',
+'Electrónica', 'Accesorio'],
+ 'Costo': [800, 15, 40, 200, 300, 20]
+}
+info_vendedores = {
+ 'Vendedor': ['Ana', 'Carlos', 'Maria', 'Pedro', 'Laura'],
+ 'Departamento': ['Ventas', 'Tecnología', 'Ventas', 'Marketing', 'Ventas'],
+ 'Salario_Base': [30000, 35000, 32000, 28000, 31000]
+}
+
+df_productos = pd.DataFrame(info_producto)
+df_vendedores = pd.DataFrame(info_vendedores)
+
+df_ventas_productos = pd.merge(
+    df_ventas,
+	df_productos,
+	left_index=True,
+    right_index=True,
+	how='inner',
+    indicator=True
+)
+
+df_ventas_vendedores = pd.merge(
+	df_ventas,
+    df_vendedores,
+	left_index=True,
+    right_index=True,
+	how='left',
+    indicator=True
+)
+
+nueva_venta = {
+    'Fecha': ['2024-04-01'],
+    'Producto': ['Auriculares'],
+    'Cantidad': [2],
+    'Precio_Unitario': [50],
+    'Region': ['Norte'],
+    'Vendedor': ['Laura'],
+    'Venta_Total': [100]
+}
+
+df_nueva_venta = pd.DataFrame(nueva_venta)
+df_nueva_venta['Fecha'] = pd.to_datetime(df_nueva_venta['Fecha'])
+df_ventas_actualizado = pd.concat([df_ventas, df_nueva_venta], ignore_index=True)
+
+# Ejercicio 11: Concatenar nueva información
+print("\n\n=== Ejercicio 11: Concatenar nueva venta ===")
+ventas = df_ventas_actualizado[(df_ventas_actualizado['Fecha'] >= '2024-01-15') & (df_ventas_actualizado['Fecha'] <= '2024-01-31')]
+print(f"Han habido {len(ventas)} ventas en la segunda quincena de enero de 2024.")
