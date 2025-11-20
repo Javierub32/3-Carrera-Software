@@ -5,6 +5,8 @@ model TopFive_V1
 -- =============================================================================
 
 enum TipoEstado { PENDIENTE, EN_CURSO, COMPLETADO }
+enum TipoRecurso { LIBRO, VIDEOJUEGO, COLECCION, MUSICA, AUDIOVISUAL}
+enum TipoContenido { LIBRO, VIDEOJUEGO, CANCION, ALBUM, PELICULA, SERIE}
 
 -- =============================================================================
 -- CLASES
@@ -23,57 +25,68 @@ attributes
 	telefono: String
 end
 
-class Libro
+class Contenido
 attributes
-	titulo: String
-	autor: String
+	nombre: String
+	genero: String
+	fechaLanzamiento: String
+	creador: String
+	tipoContenido: TipoContenido
+end
+
+class Libro < Contenido
+attributes
 	saga: String
 	editorial: String
 	paginas: Integer -- > 0
-	genero: String
+	calificacionMedia: Real derive:
+		if self.instanciaUsuario->isEmpty() then 0.0
+		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
+		endif
 end
 
-class Videojuego
+class Videojuego < Contenido
 attributes
-	nombre: String
-	desarrollador: String
-	fechaLanzamiento: String
 	duracion: Integer -- > 0
-	genero: String
+	calificacionMedia: Real derive:
+		if self.instanciaUsuario->isEmpty() then 0.0
+		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
+		endif
 end
 
-class Cancion
+class Cancion < Contenido
 attributes
-	nombre: String
-	artista: String
 	duracion: Integer -- en segundos
-	genero: String
+	calificacionMedia: Real derive:
+		if self.instanciaUsuario->isEmpty() then 0.0
+		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
+		endif
 end
 
-class Album
+class Album < Contenido
 attributes
-	nombre: String
-	artista: String
-	fechaLanzamiento: String
-	genero: String
+	calificacionMedia: Real derive:
+		if self.instanciaUsuario->isEmpty() then 0.0
+		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
+		endif
 end
 
-class Pelicula
+class Pelicula < Contenido
 attributes
-	nombre: String
-	director: String
-	fechaEstreno: String
 	duracion: Integer -- > 0
-	genero: String
+	calificacionMedia: Real derive:
+		if self.instanciaUsuario->isEmpty() then 0.0
+		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
+		endif
 end
 
-class Serie
+class Serie < Contenido
 attributes
-	nombre: String
-	creador: String
 	numeroTemporadas: Integer -- > 0
-	genero: String
-
+	calificacionMedia: Real derive:
+		if self.instanciaUsuario->isEmpty() then 0.0
+		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
+		endif
 end
 
 -- Clase común para añadir cualquier libros/videojuego/canción... a tu cuenta
@@ -84,12 +97,13 @@ attributes
 	estado: TipoEstado
 	favorito: Boolean
 	fechaCreacion: String
+	tipoRecurso: TipoRecurso
 end
 
 -- Añadimos los recursos específicos
 class RecursoLibro < Recurso
 attributes
-	horasParaCompletar: Integer -- > 0
+	horasLeidas: Integer -- > 0
 	paginasLeidas: Integer      -- > 0
 	fechaInicio: String
 	fechaFin: String
@@ -97,7 +111,6 @@ end
 
 class RecursoVideojuego < Recurso
 attributes
-	horasParaCompletar: Integer -- > 0
 	horasJugadas: Integer     -- > 0
 	dificultad: Integer		-- escala del 1 al 10
 	fechaInicio: String
@@ -124,6 +137,7 @@ class RecursoSerie < Recurso
 attributes
 	temporadaActual: Integer -- > 0
 	episodioActual: Integer -- > 0
+	numeroVisionados: Integer -- > 0
 	fechaInicio: String
 	fechaFin: String
 end
@@ -142,69 +156,44 @@ association Tiene between
 end
 
 association PerteneceAlbum between
-	RecursoAlbum[0..*] role album
-	RecursoCancion[1..*] role canciones
+	Album[0..*] role album
+	Cancion[1..*] role canciones
 end
 
 association ReferenciaLibro between
     Libro[1] role libroBase
-    RecursoLibro[*] role instanciasUsuario
+    RecursoLibro[*] role instanciaUsuario
 end
 
 association ReferenciaVideojuego between
     Videojuego[1] role videojuegoBase
-    RecursoVideojuego[*] role instanciasUsuario
+    RecursoVideojuego[*] role instanciaUsuario
 end
 
 association ReferenciaCancion between
     Cancion[1] role cancionBase
-    RecursoCancion[*] role instanciasUsuario
+    RecursoCancion[*] role instanciaUsuario
 end
 
 association ReferenciaAlbum between
     Album[1] role albumBase
-    RecursoAlbum[*] role instanciasUsuario
+    RecursoAlbum[*] role instanciaUsuario
 end
 
 association ReferenciaPelicula between
     Pelicula[1] role peliculaBase
-    RecursoPelicula[*] role instanciasUsuario
+    RecursoPelicula[*] role instanciaUsuario
 end
 
 association ReferenciaSerie between
     Serie[1] role serieBase
-    RecursoSerie[*] role instanciasUsuario
+    RecursoSerie[*] role instanciaUsuario
 end
 
 ------- Asociaciones del administrador para crear ---------
-association CreaLibro between
-    UsuarioAdministrador[1] role creador
-    Libro[*] role libro
-end
-
-association CreaVideojuego between
+association CreaContenido between
 	UsuarioAdministrador[1] role creador
-	Videojuego[*] role videojuego
-end
-
-association CreaCancion between
-	UsuarioAdministrador[1] role creador
-	Cancion[*] role cancion
-end
-
-association CreaAlbum between
-	UsuarioAdministrador[1] role creador
-	Album[*] role album
-end
-
-association CreaPelicula between
-	UsuarioAdministrador[1] role creador
-	Pelicula[*] role pelicula
-end
-
-association CreaSerie between
-	UsuarioAdministrador[1] role creador
-	Serie[*] role serie
+	Contenido[*] role contenido
 end
 
 ------- Asociaciones del administrador para crear ---------

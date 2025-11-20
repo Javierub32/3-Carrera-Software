@@ -351,7 +351,6 @@ def ej9_combinarPrestamosLibrosEstudiantes(db):
     print("\nEjercicio 9 - Reporte Préstamos")
     pipeline = [
 		{
-			# Unimos con estudiantes
 			"$lookup": {
 				"from": "estudiantes",
 				"localField": "estudiante_id",
@@ -360,7 +359,6 @@ def ej9_combinarPrestamosLibrosEstudiantes(db):
 			}
 		},
         {
-            # Unimos con libros
             "$lookup": {
                 "from": "libros",
                 "localField": "libro_id",
@@ -368,7 +366,6 @@ def ej9_combinarPrestamosLibrosEstudiantes(db):
                 "as": "info_libro"
             }
         },
-        # Descomponer los arrays resultantes
         {
             "$unwind": "$info_estudiante"
         },

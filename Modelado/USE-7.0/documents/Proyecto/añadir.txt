@@ -12,3 +12,15 @@ protected void addEstado(Estado estado) {
     inv soloCompletadoTieneCalificacion:
         self.calificacion > 0 implies self.estado = TipoEstado::COMPLETADO
     
+
+Añadir contenido abstracto para usuario Administrador
+
+Relacion entre recursoalbum y recursocancion cambiarlo a cancion y album
+
+fechaInicio en recurso
+
+Serie tiene que tener numero visionado
+
+tipoRecurso para poder hacer invariante de que en una misma colección no haya incompatibles
+
+eliminar horasparacompletar 
