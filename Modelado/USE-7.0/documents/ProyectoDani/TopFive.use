@@ -48,6 +48,7 @@ end
 
 class Videojuego < Contenido
 attributes
+	duracion: Integer -- > 0
 	calificacionMedia: Real derive:
 		if self.instanciaUsuario->isEmpty() then 0.0
 		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
@@ -196,34 +197,34 @@ association CreaContenido between
 	Contenido[*] role contenido
 end
 
-------- Asociaciones de las colecciones ---------
+------- Asociaciones del administrador para crear ---------
 association ContieneLibro between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoLibro[*] role libros
 end
 
 association ContieneVideojuego between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoVideojuego[*] role videojuegos
 end
 
 association ContieneCancion between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoCancion[*] role canciones
 end
 
 association ContieneAlbum between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoAlbum[*] role albums
 end
 
 association ContienePelicula between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoPelicula[*] role peliculas
 end
 
 association ContieneSerie between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoSerie[*] role series
 end
 
@@ -238,6 +239,10 @@ constraints
 -- Libro: número de páginas positivo
 context Libro
 inv paginasPositivas: self.paginas > 0
+
+-- Videojuego: duración positiva
+context Videojuego
+inv duracionPositiva: self.duracion > 0
 
 -- Canción: duración positiva
 context Cancion

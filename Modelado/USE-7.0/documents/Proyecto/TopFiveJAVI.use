@@ -32,7 +32,6 @@ attributes
 	fechaLanzamiento: String
 	creador: String
 	tipoContenido: TipoContenido
-	creadorRecurso: UsuarioAdministrador
 end
 
 class Libro < Contenido
@@ -48,6 +47,7 @@ end
 
 class Videojuego < Contenido
 attributes
+	duracion: Integer -- > 0
 	calificacionMedia: Real derive:
 		if self.instanciaUsuario->isEmpty() then 0.0
 		else self.instanciaUsuario.calificacion->sum() / self.instanciaUsuario->size()
@@ -192,120 +192,37 @@ end
 
 ------- Asociaciones del administrador para crear ---------
 association CreaContenido between
-	UsuarioAdministrador[1] role creadorRecurso
+	UsuarioAdministrador[1] role creador
 	Contenido[*] role contenido
 end
 
-------- Asociaciones de las colecciones ---------
+------- Asociaciones del administrador para crear ---------
 association ContieneLibro between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoLibro[*] role libros
 end
 
 association ContieneVideojuego between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoVideojuego[*] role videojuegos
 end
 
 association ContieneCancion between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoCancion[*] role canciones
 end
 
 association ContieneAlbum between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoAlbum[*] role albums
 end
 
 association ContienePelicula between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoPelicula[*] role peliculas
 end
 
 association ContieneSerie between
-	RecursoColeccion[*] role coleccion
+	RecursoColeccion[1] role coleccion
 	RecursoSerie[*] role series
 end
-
--- =============================================================================
--- INVARIANTES
--- =============================================================================
-
-constraints 
-
-------- Invariantes de atributos básicos (nada negativo y en rango) ---------
-
--- Libro: número de páginas positivo
-context Libro
-inv paginasPositivas: self.paginas > 0
-
--- Canción: duración positiva
-context Cancion
-inv duracionPositiva: self.duracion > 0
-
--- Película: duración positiva
-context Pelicula
-inv duracionPositiva: self.duracion > 0
-
--- Serie: número de temporadas positivo
-context Serie
-inv temporadasPositivas: self.numeroTemporadas > 0
-
--- RecursoLibro: horas y páginas no negativas
-context RecursoLibro
-inv paginasLeidasPositivas: self.paginasLeidas >= 0
-
--- RecursoVideojuego: horas y dificultad dentro de rango
-context RecursoVideojuego
-inv horasJugadasPositivas: self.horasJugadas >= 0
-inv dificultadValida: self.dificultad >= 1 and self.dificultad <= 10
-
--- RecursoPelicula: número de visionados no negativo
-context RecursoPelicula
-inv numeroVisionadosPositivo: self.numeroVisionados >= 0
-
--- RecursoSerie: temporada y episodio no negativos
-context RecursoSerie
-inv temporadaActualPositiva: self.temporadaActual >= 0
-inv episodioActualPositivo: self.episodioActual >= 0
-
--- Recurso: calificación entre 0 y 10 (posible a cambiar entre 0 y 5)
-context Recurso
-inv calificacionValida: self.calificacion >= 0 and self.calificacion <= 10
-
----------------- Invariantes de asociaciones -------------------
-
--- No duplicados en las colecciones, comparando el conjunto original y convirtiéndolo en set si cambia
-context RecursoColeccion
-inv noDuplicadosEnLibros: self.libros->asSet() = self.libros
-inv noDuplicadosEnVideojuegos: self.videojuegos->asSet() = self.videojuegos
-inv noDuplicadosEnCanciones: self.canciones->asSet() = self.canciones
-inv noDuplicadosEnAlbums: self.albums->asSet() = self.albums
-inv noDuplicadosEnPeliculas: self.peliculas->asSet() = self.peliculas
-inv noDuplicadosEnSeries: self.series->asSet() = self.series
-
-
-------- Asociaciones del administrador para crear ---------
-
--- Solo los administradores crean recursos
-context UsuarioAdministrador
-inv creaSoloAdmin:
-    self.contenido->forAll(c | c.creadorRecurso = self)
-
-
-
---------- Invariante SOLO puedo meter recurso en colección si es compatible con mi recurso --------------
-	--- GRUPO LIBRO: Libro | GRUPO VIDEOJUEGO: Videojuego | GRUPO MUSICA: Cancion, Album | GRUPO TELEVISION: Serie, Pelicula
-
-context RecursoColeccion
-inv recursosCompatibles:
-    self.tipoRecurso = TipoRecurso::COLECCION or
-    (
-        self.libros->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.videojuegos->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.canciones->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.albums->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.peliculas->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.series->forAll(r | r.tipoRecurso = self.tipoRecurso)
-    )
-

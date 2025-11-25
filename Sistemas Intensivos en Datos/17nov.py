@@ -3,50 +3,30 @@ import numpy as np
 from datetime import datetime
 
 clientes_data = {
-
     'cliente_id': [1, 2, 3, 4, 5, 6, 7],
-
     'nombre': ['Ana García', 'Luis Martínez', 'Carlos Rodríguez', 'María López', 
-
                'Pedro Sánchez', 'Laura Fernández', 'Sofia Ramirez'],
-
     'email': ['ana@gmail.com', 'luis@empresa.com', 'carlos@hotmail.com', 
-
               'maria@gmail.com', 'pedro@yahoo.com', 'laura@gmail.com', 'sofia@empresa.com'],
-
     'ciudad': ['Madrid', 'Barcelona', 'Madrid', 'Valencia', 'Sevilla', 'Barcelona', 'Bilbao'],
-
     'saldo': ['1500.50', '800.75', '2200.00', '950.25', '3000.80', '1200.40', '750.90'],
-
     'fecha_registro': ['2023-01-15', '2022-03-22', '2023-05-10', '2021-11-30', 
-
                        '2023-08-14', '2022-01-05', '2023-12-01'],
-
     'categoria': ['Premium', 'Standard', 'Premium', 'Standard', 'Premium', 'Standard', 'Standard']
 
 }
 df_clientes = pd.DataFrame(clientes_data)
 
 pedidos_data = {
-
     'pedido_id': [101, 102, 103, 104, 105, 106, 107, 108, 109],
-
     'cliente_id': [1, 2, 1, 3, 4, 2, 1, 8, 3],  # cliente_id 8 no existe en clientes
-
     'producto': ['Laptop', 'Tablet', 'Smartphone', 'Monitor', 'Teclado', 
-
                  'Mouse', 'Tablet', 'Monitor', 'Laptop'],
-
     'cantidad': [1, 2, 1, 1, 3, 2, 1, 1, 1],
-
     'precio': [800, 300, 500, 250, 50, 25, 300, 250, 800],
-
     'fecha_pedido': ['2023-02-20', '2023-03-15', '2023-04-10', '2023-05-25', 
-
                      '2023-06-05', '2023-07-18', '2023-08-20', '2023-09-01', '2023-10-15'],
-
     'estado': ['Entregado', 'Entregado', 'Pendiente', 'Entregado', 'Cancelado', 
-
                'Entregado', 'Entregado', 'Pendiente', 'Pendiente']
 
 }
@@ -56,15 +36,10 @@ df_pedidos = pd.DataFrame(pedidos_data)
 df_pedidos['Total'] = df_pedidos['cantidad'] * df_pedidos['precio']
 
 productos_data = {
-
     'producto_id': ['P001', 'P002', 'P003', 'P004', 'P005'],
-
     'nombre': ['Laptop', 'Tablet', 'Smartphone', 'Monitor', 'Teclado'],
-
     'precio': ['1200.75', '450.50', '799.99', '299.00', '89.95'],
-
     'categoria': ['Tecnología', 'Tecnología', 'Tecnología', 'Oficina', 'Oficina'],
-
     'stock': [15, 30, 25, 40, 100]
 
 }
