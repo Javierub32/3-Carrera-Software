@@ -8,7 +8,7 @@
         <showmultiplicities>false</showmultiplicities>
         <showoperations>false</showoperations>
         <showrolenames>true</showrolenames>
-        <showgrid>true</showgrid>
+        <showgrid>false</showgrid>
         <ShowStates>false</ShowStates>
     </diagramOptions>
     <node id="Colec1" sizeCalculated="true" type="Object">
@@ -113,28 +113,30 @@
         <name>CreaContenido</name>
         <properties>
             <edgeproperty
-                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>CreaContenido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::0</related0>
+                        <related1>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::3</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::source::rolename"
+                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::target::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>creadorRecurso</name>
+                <name>contenido</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>7.0</userOffsetX>
-                    <userOffsetY>23.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::0</attached>
+                    <userOffsetX>-25.0</userOffsetX>
+                    <userOffsetY>22.0</userOffsetY>
+                    <attached>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::3</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
@@ -157,13 +159,13 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::target::rolename"
+                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>contenido</name>
+                <name>creadorRecurso</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>-25.0</userOffsetX>
-                    <userOffsetY>22.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::3</attached>
+                    <userOffsetX>7.0</userOffsetX>
+                    <userOffsetY>23.0</userOffsetY>
+                    <attached>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
@@ -171,19 +173,17 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>CreaContenido</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::0</related0>
-                        <related1>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::3</related1>
-                    </related>
+                    <attached>[CreaContenido : (contenido:Libro1, creadorRecurso:Admin1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -249,47 +249,19 @@
         <name>Tiene</name>
         <properties>
             <edgeproperty
-                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>Tiene</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::source::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>propietario</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::target::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>recursos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::0</related0>
+                        <related1>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::1</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -309,19 +281,45 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>recursos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>6.0</userOffsetX>
+                    <userOffsetY>4.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>propietario</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>3.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U2, recursos:RLibro1U2)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>Tiene</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::0</related0>
-                        <related1>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::1</related1>
-                    </related>
+                    <attached>[Tiene : (propietario:U2, recursos:RLibro1U2)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -363,6 +361,52 @@
         <name>CreaContenido</name>
         <properties>
             <edgeproperty
+                id="[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>CreaContenido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::0</related0>
+                        <related1>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::3</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::3</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>contenido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>129.0</userOffsetX>
+                    <userOffsetY>187.0</userOffsetY>
+                    <attached>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::3</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
                 id="[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
@@ -388,52 +432,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>contenido</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>129.0</userOffsetX>
-                    <userOffsetY>187.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::3</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::3</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>CreaContenido</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::0</related0>
-                        <related1>[CreaContenido : (contenido:Pelicula1, creadorRecurso:Admin1)]::WayPoint::3</related1>
-                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -506,31 +504,19 @@
         <name>Tiene</name>
         <properties>
             <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RS1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+                id="[Tiene : (propietario:U1, recursos:RS1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>Tiene</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RS1)]::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>propietario</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>20.0</userOffsetX>
-                    <userOffsetY>-19.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::0</related0>
+                        <related1>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::2</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -564,19 +550,31 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RS1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[Tiene : (propietario:U1, recursos:RS1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>propietario</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>20.0</userOffsetX>
+                    <userOffsetY>-19.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U1, recursos:RS1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>Tiene</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::0</related0>
-                        <related1>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::2</related1>
-                    </related>
+                    <attached>[Tiene : (propietario:U1, recursos:RS1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -630,32 +628,19 @@
         <name>ReferenciaVideojuego</name>
         <properties>
             <edgeproperty
-                id="[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+                id="[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>ReferenciaVideojuego</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::source::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>videojuegoBase</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::0</related0>
+                        <related1>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::1</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -676,12 +661,11 @@
             </edgeproperty>
             <edgeproperty
                 id="[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::target::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>instanciaUsuario</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
+                    <userOffsetX>3.0</userOffsetX>
+                    <userOffsetY>8.0</userOffsetY>
                     <attached>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
@@ -690,19 +674,31 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>ReferenciaVideojuego</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::0</related0>
-                        <related1>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::1</related1>
-                    </related>
+                    <attached>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>videojuegoBase</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[ReferenciaVideojuego : (instanciaUsuario:RVideojuego1, videojuegoBase:Videojuego1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -744,6 +740,52 @@
         <name>ReferenciaCancion</name>
         <properties>
             <edgeproperty
+                id="[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>ReferenciaCancion</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::0</related0>
+                        <related1>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>instanciaUsuario</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>5.0</userOffsetX>
+                    <userOffsetY>14.0</userOffsetY>
+                    <attached>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
                 id="[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::source::rolename"
                 sizeCalculated="true" type="rolename"
                 userDefined="false" visible="true">
@@ -770,52 +812,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>instanciaUsuario</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>5.0</userOffsetX>
-                    <userOffsetY>14.0</userOffsetY>
-                    <attached>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>ReferenciaCancion</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::0</related0>
-                        <related1>[ReferenciaCancion : (cancionBase:Cancion1, instanciaUsuario:RS1)]::WayPoint::1</related1>
-                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -857,13 +853,45 @@
         <name>Tiene</name>
         <properties>
             <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>propietario</name>
+                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>Tiene</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::0</related0>
+                        <related1>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::2</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>25.0</userOffsetX>
-                    <userOffsetY>19.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::0</attached>
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::2</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>recursos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-1.0</userOffsetX>
+                    <userOffsetY>4.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::2</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
@@ -886,48 +914,16 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::target::rolename"
+                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>recursos</name>
+                <name>propietario</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>-27.0</userOffsetX>
-                    <userOffsetY>-16.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::2</attached>
+                    <userOffsetX>25.0</userOffsetX>
+                    <userOffsetY>19.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::2</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RVideojuego1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>Tiene</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::0</related0>
-                        <related1>[Tiene : (propietario:U1, recursos:RVideojuego1)]::WayPoint::2</related1>
-                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -995,32 +991,19 @@
         <name>ReferenciaLibro</name>
         <properties>
             <edgeproperty
-                id="[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+                id="[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>ReferenciaLibro</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::source::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>libroBase</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::0</related0>
+                        <related1>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::3</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1054,19 +1037,31 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>ReferenciaLibro</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::0</related0>
-                        <related1>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::3</related1>
-                    </related>
+                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>libroBase</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>64.0</userOffsetX>
+                    <userOffsetY>-1.0</userOffsetY>
+                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1, libroBase:Libro1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1077,7 +1072,7 @@
                 sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
-                    <userOffsetX>167.0</userOffsetX>
+                    <userOffsetX>168.0</userOffsetX>
                     <userOffsetY>-11.682593243055976</userOffsetY>
                     <basisDeltaX>ABSOLUTE</basisDeltaX>
                     <deltaX>0.0</deltaX>
@@ -1139,29 +1134,31 @@
         <name>CreaContenido</name>
         <properties>
             <edgeproperty
-                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::source::rolename"
-                sizeCalculated="true" type="rolename"
+                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>creadorRecurso</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>CreaContenido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::0</related0>
+                        <related1>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::2</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::source::multiplicity"
+                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>1</name>
+                <name>*</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::0</attached>
+                    <attached>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::2</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
@@ -1184,14 +1181,14 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::target::multiplicity"
+                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>*</name>
+                <name>1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::2</attached>
+                    <attached>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
@@ -1199,19 +1196,16 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>CreaContenido</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::0</related0>
-                        <related1>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::2</related1>
-                    </related>
+                id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>creadorRecurso</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>7.0</userOffsetX>
+                    <userOffsetY>12.0</userOffsetY>
+                    <attached>[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1244,12 +1238,19 @@
             </edgeproperty>
             <edgeproperty
                 id="[CreaContenido : (contenido:Cancion1, creadorRecurso:Admin1)]::WayPoint::2"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
                 <name>2</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
+                    <userOffsetX>74.99853942802702</userOffsetX>
+                    <userOffsetY>142.0</userOffsetY>
+                    <basisDeltaX>ABSOLUTE</basisDeltaX>
+                    <deltaX>0.0</deltaX>
+                    <maxDeltaX>1.7976931348623157E308</maxDeltaX>
+                    <basisDeltaY>ABSOLUTE</basisDeltaY>
+                    <deltaY>0.0</deltaY>
+                    <maxDeltaY>1.7976931348623157E308</maxDeltaY>
+                    <corner>NORTH_WEST</corner>
+                    <relativeNodeId>Cancion1</relativeNodeId>
                 </strategy>
                 <id>2</id>
                 <specialid>2</specialid>
@@ -1265,47 +1266,19 @@
         <name>Tiene</name>
         <properties>
             <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:Colec1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+                id="[Tiene : (propietario:U1, recursos:Colec1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>Tiene</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:Colec1)]::source::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>propietario</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:Colec1)]::target::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>recursos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::0</related0>
+                        <related1>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::1</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1325,19 +1298,45 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:Colec1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[Tiene : (propietario:U1, recursos:Colec1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>recursos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>60.0</userOffsetX>
+                    <userOffsetY>2.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U1, recursos:Colec1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>propietario</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>70.0</userOffsetX>
+                    <userOffsetY>5.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U1, recursos:Colec1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>Tiene</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::0</related0>
-                        <related1>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::1</related1>
-                    </related>
+                    <attached>[Tiene : (propietario:U1, recursos:Colec1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1374,202 +1373,24 @@
         <linkValue>[Tiene : (propietario:U1, recursos:Colec1)]</linkValue>
     </edge>
     <edge type="BinaryEdge">
-        <source>Colec1</source>
-        <target>RVideojuego1</target>
-        <name>ContieneVideojuego</name>
+        <source>U1</source>
+        <target>RLibro1</target>
+        <name>Tiene</name>
         <properties>
             <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::source::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>coleccion</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::3</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>videojuegos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>-87.0</userOffsetX>
-                    <userOffsetY>67.0</userOffsetY>
-                    <attached>[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::3</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::AssociationName"
+                id="[Tiene : (propietario:U1, recursos:RLibro1)]::AssociationName"
                 sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>ContieneVideojuego</name>
+                <name>Tiene</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
                     <offsetX>0.0</offsetX>
                     <offsetY>-10.0</offsetY>
                     <related length="2">
-                        <related0>[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::0</related0>
-                        <related1>[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::3</related1>
+                        <related0>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::0</related0>
+                        <related1>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::2</related1>
                     </related>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </properties>
-        <waypoints>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::0"
-                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
-                <name>0</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
-                    <userOffsetX>158.36248295859866</userOffsetX>
-                    <userOffsetY>-3.0</userOffsetY>
-                    <basisDeltaX>ABSOLUTE</basisDeltaX>
-                    <deltaX>0.0</deltaX>
-                    <maxDeltaX>1.7976931348623157E308</maxDeltaX>
-                    <basisDeltaY>ABSOLUTE</basisDeltaY>
-                    <deltaY>0.0</deltaY>
-                    <maxDeltaY>1.7976931348623157E308</maxDeltaY>
-                    <corner>NORTH_WEST</corner>
-                    <relativeNodeId>Colec1</relativeNodeId>
-                </strategy>
-                <id>0</id>
-                <specialid>1</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::1"
-                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-                    <x>865.0</x>
-                    <y>233.0</y>
-                </strategy>
-                <id>1</id>
-                <specialid>0</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::2"
-                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
-                <name>2</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-                    <x>1026.0</x>
-                    <y>233.0</y>
-                </strategy>
-                <id>2</id>
-                <specialid>0</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]::WayPoint::3"
-                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
-                <name>3</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
-                    <userOffsetX>85.0</userOffsetX>
-                    <userOffsetY>-32.07383264767091</userOffsetY>
-                    <basisDeltaX>ABSOLUTE</basisDeltaX>
-                    <deltaX>0.0</deltaX>
-                    <maxDeltaX>1.7976931348623157E308</maxDeltaX>
-                    <basisDeltaY>ABSOLUTE</basisDeltaY>
-                    <deltaY>0.0</deltaY>
-                    <maxDeltaY>1.7976931348623157E308</maxDeltaY>
-                    <corner>NORTH_WEST</corner>
-                    <relativeNodeId>RVideojuego1</relativeNodeId>
-                </strategy>
-                <id>3</id>
-                <specialid>2</specialid>
-                <hidden>false</hidden>
-            </edgeproperty>
-        </waypoints>
-        <hidden>false</hidden>
-        <linkValue>[ContieneVideojuego : (coleccion:Colec1, videojuegos:RVideojuego1)]</linkValue>
-    </edge>
-    <edge type="BinaryEdge">
-        <source>U1</source>
-        <target>RLibro1</target>
-        <name>Tiene</name>
-        <properties>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RLibro1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RLibro1)]::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>propietario</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>6.0</userOffsetX>
-                    <userOffsetY>13.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RLibro1)]::target::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>recursos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::2</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1589,19 +1410,45 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[Tiene : (propietario:U1, recursos:RLibro1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[Tiene : (propietario:U1, recursos:RLibro1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>recursos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>64.0</userOffsetX>
+                    <userOffsetY>1.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::2</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U1, recursos:RLibro1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>propietario</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>8.0</userOffsetX>
+                    <userOffsetY>9.0</userOffsetY>
+                    <attached>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[Tiene : (propietario:U1, recursos:RLibro1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>Tiene</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::0</related0>
-                        <related1>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::2</related1>
-                    </related>
+                    <attached>[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1634,12 +1481,19 @@
             </edgeproperty>
             <edgeproperty
                 id="[Tiene : (propietario:U1, recursos:RLibro1)]::WayPoint::2"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
                 <name>2</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
+                    <userOffsetX>81.29169265190399</userOffsetX>
+                    <userOffsetY>-1.0</userOffsetY>
+                    <basisDeltaX>ABSOLUTE</basisDeltaX>
+                    <deltaX>0.0</deltaX>
+                    <maxDeltaX>1.7976931348623157E308</maxDeltaX>
+                    <basisDeltaY>ABSOLUTE</basisDeltaY>
+                    <deltaY>0.0</deltaY>
+                    <maxDeltaY>1.7976931348623157E308</maxDeltaY>
+                    <corner>NORTH_WEST</corner>
+                    <relativeNodeId>RLibro1</relativeNodeId>
                 </strategy>
                 <id>2</id>
                 <specialid>2</specialid>
@@ -1655,29 +1509,30 @@
         <name>ReferenciaLibro</name>
         <properties>
             <edgeproperty
-                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>ReferenciaLibro</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::0</related0>
+                        <related1>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::1</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::source::rolename"
-                sizeCalculated="true" type="rolename"
-                userDefined="false" visible="true">
-                <name>libroBase</name>
+                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>instanciaUsuario</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::0</attached>
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
+                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
@@ -1700,13 +1555,14 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>instanciaUsuario</name>
+                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::source::rolename"
+                sizeCalculated="true" type="rolename"
+                userDefined="false" visible="true">
+                <name>libroBase</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>2.0</userOffsetX>
-                    <userOffsetY>10.0</userOffsetY>
-                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::1</attached>
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
@@ -1714,19 +1570,17 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>ReferenciaLibro</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::0</related0>
-                        <related1>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::1</related1>
-                    </related>
+                    <attached>[ReferenciaLibro : (instanciaUsuario:RLibro1U2, libroBase:Libro1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1768,6 +1622,52 @@
         <name>CreaContenido</name>
         <properties>
             <edgeproperty
+                id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>CreaContenido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::0</related0>
+                        <related1>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::2</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>contenido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>1.0</userOffsetX>
+                    <userOffsetY>13.0</userOffsetY>
+                    <attached>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::2</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::2</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
                 id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
@@ -1796,52 +1696,6 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty
-                id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::2</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>contenido</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>1.0</userOffsetX>
-                    <userOffsetY>13.0</userOffsetY>
-                    <attached>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::2</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>CreaContenido</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::0</related0>
-                        <related1>[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::2</related1>
-                    </related>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
         </properties>
         <waypoints>
             <edgeproperty
@@ -1850,7 +1704,7 @@
                 <name>0</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
                     <userOffsetX>164.0</userOffsetX>
-                    <userOffsetY>31.92826565525138</userOffsetY>
+                    <userOffsetY>28.92826565525138</userOffsetY>
                     <basisDeltaX>ABSOLUTE</basisDeltaX>
                     <deltaX>0.0</deltaX>
                     <maxDeltaX>1.7976931348623157E308</maxDeltaX>
@@ -1878,12 +1732,19 @@
             </edgeproperty>
             <edgeproperty
                 id="[CreaContenido : (contenido:Videojuego1, creadorRecurso:Admin1)]::WayPoint::2"
-                sizeCalculated="true" type="WayPoint"
-                userDefined="false" visible="true">
+                sizeCalculated="true" type="WayPoint" userDefined="true" visible="true">
                 <name>2</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
+                    <userOffsetX>95.61234593617246</userOffsetX>
+                    <userOffsetY>128.0</userOffsetY>
+                    <basisDeltaX>ABSOLUTE</basisDeltaX>
+                    <deltaX>0.0</deltaX>
+                    <maxDeltaX>1.7976931348623157E308</maxDeltaX>
+                    <basisDeltaY>ABSOLUTE</basisDeltaY>
+                    <deltaY>0.0</deltaY>
+                    <maxDeltaY>1.7976931348623157E308</maxDeltaY>
+                    <corner>NORTH_WEST</corner>
+                    <relativeNodeId>Videojuego1</relativeNodeId>
                 </strategy>
                 <id>2</id>
                 <specialid>2</specialid>
@@ -1899,32 +1760,19 @@
         <name>ContieneLibro</name>
         <properties>
             <edgeproperty
-                id="[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::source::rolename"
-                sizeCalculated="true" type="rolename"
+                id="[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="false" visible="true">
-                <name>coleccion</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                <name>ContieneLibro</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <attached>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::0</related0>
+                        <related1>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::2</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1933,8 +1781,8 @@
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>libros</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>12.0</userOffsetX>
-                    <userOffsetY>18.0</userOffsetY>
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
                     <attached>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::2</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
@@ -1958,19 +1806,31 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::AssociationName"
-                sizeCalculated="true" type="associationName"
+                id="[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>coleccion</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>5.0</userOffsetX>
+                    <userOffsetY>7.0</userOffsetY>
+                    <attached>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
-                <name>ContieneLibro</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
                     <userOffsetX>0.0</userOffsetX>
                     <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::0</related0>
-                        <related1>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::2</related1>
-                    </related>
+                    <attached>[ContieneLibro : (coleccion:Colec1, libros:RLibro1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>

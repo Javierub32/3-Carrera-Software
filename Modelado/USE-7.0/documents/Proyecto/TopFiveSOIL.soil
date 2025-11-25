@@ -115,7 +115,8 @@ reset
 
 -- Añadir contenidos a la colección
 !insert(Colec1, RLibro1) into ContieneLibro
-!insert(Colec1, RVideojuego1) into ContieneVideojuego
+!Colec1.tipoRecurso := TipoRecurso::LIBRO
+
 
 -- ============================
 -- PRUEBA DE UNA ASOCIACIÓN DE CANCIONES

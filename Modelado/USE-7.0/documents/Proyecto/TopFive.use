@@ -196,7 +196,7 @@ association CreaContenido between
 	Contenido[*] role contenido
 end
 
-------- Asociaciones de las colecciones ---------
+------- Asociaciones del RecursoColeccion con los recursos que contiene ---------
 association ContieneLibro between
 	RecursoColeccion[*] role coleccion
 	RecursoLibro[*] role libros
@@ -255,10 +255,15 @@ inv temporadasPositivas: self.numeroTemporadas > 0
 context RecursoLibro
 inv paginasLeidasPositivas: self.paginasLeidas >= 0
 
+inv finalizarLibroConFechaFin: self.fechaFin <> null implies self.estado = TipoEstado::COMPLETADO
+
 -- RecursoVideojuego: horas y dificultad dentro de rango
 context RecursoVideojuego
 inv horasJugadasPositivas: self.horasJugadas >= 0
+
 inv dificultadValida: self.dificultad >= 1 and self.dificultad <= 10
+
+inv finalizarJuegoConFechaFin: self.fechaFin <> null implies self.estado = TipoEstado::COMPLETADO
 
 -- RecursoPelicula: número de visionados no negativo
 context RecursoPelicula
@@ -268,6 +273,7 @@ inv numeroVisionadosPositivo: self.numeroVisionados >= 0
 context RecursoSerie
 inv temporadaActualPositiva: self.temporadaActual >= 0
 inv episodioActualPositivo: self.episodioActual >= 0
+inv finalizarSerieConFechaFin: self.fechaFin <> null implies self.estado = TipoEstado::COMPLETADO
 
 -- Recurso: calificación entre 0 y 10 (posible a cambiar entre 0 y 5)
 context Recurso
@@ -299,13 +305,21 @@ inv creaSoloAdmin:
 
 context RecursoColeccion
 inv recursosCompatibles:
-    self.tipoRecurso = TipoRecurso::COLECCION or
-    (
-        self.libros->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.videojuegos->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.canciones->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.albums->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.peliculas->forAll(r | r.tipoRecurso = self.tipoRecurso) and
-        self.series->forAll(r | r.tipoRecurso = self.tipoRecurso)
-    )
+    let recursos : Set(Recurso) =
+        self.libros
+        ->union(self.videojuegos)
+        ->union(self.canciones)
+        ->union(self.albums)
+        ->union(self.peliculas)
+        ->union(self.series)
+    in
+        -- Caso 1: la colección es de tipo COLECCION (todo permitido)
+        self.tipoRecurso = TipoRecurso::COLECCION
+        or 
+        
+        -- Caso 2: la colección está vacía
+        recursos->isEmpty()
+        
+        -- Caso 3: todos los recursos son del mismo tipo que el primero, por tanto la union es 1
+        or recursos.tipoRecurso->asSet()->size() = 1
 
